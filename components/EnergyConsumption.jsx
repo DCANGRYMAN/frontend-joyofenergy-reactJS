@@ -5,21 +5,26 @@ const filters = [
   { label: "Daily", value: "daily" },
   { label: "Weekly", value: "weekly" },
   { label: "Monthly", value: "monthly" },
+  { label: "Yearly", value: "yearly" },
 ];
 
-export const EnergyConsumption = ({ filteredData, activeFilter, setActiveFilter }) => {
+export const EnergyConsumption = ({
+  filteredData,
+  activeFilter,
+  setActiveFilter,
+}) => {
   const containerId = "usageChart";
 
   useEffect(() => {
     if (filteredData.length) {
-      renderChart(containerId, filteredData);
+      renderChart(containerId, filteredData, activeFilter);
     }
   }, [filteredData]);
 
   return (
     <>
       <h1 className="regular darkgray line-height-1 mb3">Energy consumption</h1>
-      <section className="mb3">
+      <section className="mb3" style={{ display: "flex", gap: "0.5rem" }}>
         {filters.map((f) => (
           <button
             key={f.value}

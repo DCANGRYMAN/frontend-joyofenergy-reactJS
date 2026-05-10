@@ -2,17 +2,13 @@ import { Sidebar } from "./Sidebar.jsx";
 import { EnergyConsumption } from "./EnergyConsumption.jsx";
 import { Footer } from "./Footer.jsx";
 import { useReadings } from "../hooks/useReadings";
+import { useFilteredData } from "../hooks/useFilteredData";
+import { useStats } from "../hooks/useStats";
 
 export const App = () => {
-  const {
-    readings,
-    filteredData,
-    activeFilter,
-    setActiveFilter,
-    totalConsumption,
-    estimatedCost,
-    footprint,
-  } = useReadings();
+  const { readings } = useReadings();
+  const { filteredData, activeFilter, setActiveFilter } = useFilteredData(readings);
+  const { totalConsumption, estimatedCost, footprint } = useStats(filteredData);
 
   if (!readings) return null;
 
