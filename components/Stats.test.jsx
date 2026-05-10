@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { Footer } from "./Footer";
+import { Stats } from "./Stats";
 
-describe("Footer", () => {
+describe("Stats", () => {
   const mockStats = {
     totalConsumption: 250.5678,
     averageConsumption: 125.2345,

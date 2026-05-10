@@ -1,6 +1,6 @@
 const round = (value) => Math.round((value + Number.EPSILON) * 100) / 100;
 
-export const Footer = ({ totalConsumption, estimatedCost, footprint }) => {
+export const Stats = ({ totalConsumption, estimatedCost, footprint }) => {
   const formatValue = (value) => {
     if (isNaN(value)) return "NaN";
     if (!isFinite(value)) return value > 0 ? "Infinity" : "-Infinity";

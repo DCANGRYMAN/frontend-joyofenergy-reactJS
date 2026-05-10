@@ -1,6 +1,6 @@
 import { Sidebar } from "./Sidebar";
 import { EnergyConsumption } from "./EnergyConsumption";
-import { Footer } from "./Footer";
+import { Stats } from "./Stats";
 
 import { useReadings } from "../hooks/useReadings";
 import { useFilteredData } from "../hooks/useFilteredData";
@@ -41,7 +41,7 @@ export const App = () => {
             setActiveFilter={setActiveFilter}
             stats={stats}
           />
-          <Footer
+          <Stats
             totalConsumption={stats.totalConsumption}
             estimatedCost={stats.estimatedCost}
             footprint={stats.footprint}
