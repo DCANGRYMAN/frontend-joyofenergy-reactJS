@@ -1,27 +1,41 @@
-import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar.jsx";
 import { EnergyConsumption } from "./EnergyConsumption.jsx";
-import { getReadings } from "../utils/reading";
+import { Footer } from "./Footer.jsx";
+import { useReadings } from "../hooks/useReadings";
 
 export const App = () => {
-  const [readings, setReadings] = useState();
+  const {
+    readings,
+    filteredData,
+    activeFilter,
+    setActiveFilter,
+    totalConsumption,
+    estimatedCost,
+    footprint,
+  } = useReadings();
 
-  useEffect(() => {
-    getReadings().then(setReadings);
-  }, []);
-
-  if (!readings) {
-    return null;
-  }
+  if (!readings) return null;
 
   return (
     <div className="background shadow-2 flex overflow-hidden">
       <aside className="p3 menuWidth overflow-auto">
         <Sidebar />
       </aside>
-      <article className="bg-very-light-grey p3 flex-auto overflow-auto">
-        <EnergyConsumption readings={readings} />
-      </article>
+      <main
+        className="bg-very-light-grey flex-auto overflow-auto"
+        style={{ display: "grid", gridTemplateRows: "1fr auto", gap: "1rem", padding: "2rem" }}
+      >
+        <EnergyConsumption
+          filteredData={filteredData}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+        />
+        <Footer
+          totalConsumption={totalConsumption}
+          estimatedCost={estimatedCost}
+          footprint={footprint}
+        />
+      </main>
     </div>
   );
 };
