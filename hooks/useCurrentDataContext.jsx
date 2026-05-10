@@ -37,7 +37,7 @@ const fetchCurrentData = async () => {
       return cache;
     }
 
-    const res = await fetch("http://localhost:3000/data");
+    const res = await fetch("/api/data");
 
     if (!res || !res.ok) {
       return defaultData;
