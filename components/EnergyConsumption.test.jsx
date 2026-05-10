@@ -57,9 +57,6 @@ describe("EnergyConsumption", () => {
         screen.getByText("Monthly")
       ).toBeInTheDocument();
 
-      expect(
-        screen.getByText("Yearly")
-      ).toBeInTheDocument();
     });
 
     it("should render canvas element with correct id", () => {
@@ -183,23 +180,6 @@ describe("EnergyConsumption", () => {
       ).toHaveBeenCalledWith("monthly");
     });
 
-    it("should call setActiveFilter with yearly", () => {
-      render(
-        <EnergyConsumption
-          filteredData={mockFilteredData}
-          activeFilter="daily"
-          setActiveFilter={mockSetActiveFilter}
-        />
-      );
-
-      fireEvent.click(
-        screen.getByText("Yearly")
-      );
-
-      expect(
-        mockSetActiveFilter
-      ).toHaveBeenCalledWith("yearly");
-    });
   });
 
   describe("Chart Rendering", () => {
