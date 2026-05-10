@@ -19,34 +19,23 @@ export const App = () => {
   }
 
   return (
-    <div
-      className="bg-dark-gray min-vh-100"
-      style={{ overflowX: "hidden", overflowY: "auto" }}
-    >
-      <div className="mw9 center ph3">
-        <div style={{ display: "flex", minHeight: "100vh" }}>
-          <aside style={{ width: "20%", flexShrink: 0 }}>
-            <Sidebar />
-          </aside>
-          <main
-            style={{
-              width: "80%",
-              display: "grid",
-              gridTemplateRows: "1fr auto",
-            }}
-          >
-            <EnergyConsumption
-              filteredData={filteredData}
-              activeFilter={activeFilter}
-              setActiveFilter={setActiveFilter}
-            />
-            <Footer
-              totalConsumption={stats.totalConsumption}
-              estimatedCost={stats.estimatedCost}
-              footprint={stats.footprint}
-            />
-          </main>
-        </div>
+    <div className="app-root">
+      <div className="app-container">
+        <aside className="app-sidebar">
+          <Sidebar />
+        </aside>
+        <main className="app-main">
+          <EnergyConsumption
+            filteredData={filteredData}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+          />
+          <Footer
+            totalConsumption={stats.totalConsumption}
+            estimatedCost={stats.estimatedCost}
+            footprint={stats.footprint}
+          />
+        </main>
       </div>
     </div>
   );

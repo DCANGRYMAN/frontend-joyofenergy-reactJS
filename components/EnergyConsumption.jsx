@@ -12,14 +12,14 @@ export const EnergyConsumption = ({ filteredData, activeFilter, setActiveFilter 
 
   useEffect(() => {
     if (filteredData.length) {
-      renderChart(containerId, filteredData);
+      renderChart(containerId, filteredData, activeFilter);
     }
-  }, [filteredData]);
+  }, [filteredData, activeFilter]);
 
   return (
     <>
       <h1 className="regular darkgray line-height-1 mb3">Energy consumption</h1>
-      <section className="mb3">
+      <section className="filter-bar mb3">
         {filters.map((f) => (
           <button
             key={f.value}
@@ -27,13 +27,12 @@ export const EnergyConsumption = ({ filteredData, activeFilter, setActiveFilter 
             className={`h5 inline-block shadow-2 pl2 pr2 pt1 pb1 roundedMore border-grey bold ${
               activeFilter === f.value ? "bg-blue white" : "bg-white darkgray"
             }`}
-            style={{ cursor: "pointer" }}
           >
             {f.label}
           </button>
         ))}
       </section>
-      <section className="chartHeight mb3">
+      <section className="chart-wrapper mb3">
         <canvas id={containerId} />
       </section>
     </>

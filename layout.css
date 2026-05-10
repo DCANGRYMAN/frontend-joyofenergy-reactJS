@@ -1,0 +1,79 @@
+/* ─── Root ─────────────────────────────────────────────── */
+.app-root {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #FFF;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* ─── Sidebar ───────────────────────────────────────────── */
+.app-sidebar {
+  width: 20%;
+  flex-shrink: 0;
+  position: sticky;
+  top: 1.5rem;
+}
+
+/* ─── Main ──────────────────────────────────────────────── */
+.app-main {
+  width: 80%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: calc(100vh - 3rem);
+}
+
+/* ─── Filter buttons ────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-bar button {
+  cursor: pointer;
+  border: none;
+}
+
+/* ─── Chart ─────────────────────────────────────────────── */
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ─── Responsivo ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    position: static;
+  }
+
+  .app-main {
+    width: 100%;
+    min-height: unset;
+    grid-template-rows: auto auto;
+  }
+
+  .chart-wrapper {
+    height: 260px;
+  }
+}
