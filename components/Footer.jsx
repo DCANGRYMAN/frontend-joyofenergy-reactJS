@@ -8,7 +8,7 @@ export const Footer = ({ totalConsumption, estimatedCost, footprint }) => {
   };
 
   return (
-    <section className="flex gap2">
+    <section className="flex gap2 footer-cards">
       <div className="stat-card shadow-2 roundedMore p3 bg-white flex-auto">
         <p className="h6 grey mb1">Total Consumption</p>
         <h2 className="darkgray regular">

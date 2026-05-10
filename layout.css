@@ -77,3 +77,9 @@
     height: 260px;
   }
 }
+
+/* ─── Footer ────────────────────────────────────────────── */
+.footer-cards {
+  display: flex;
+  gap: 1rem;
+}
