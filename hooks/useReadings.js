@@ -9,5 +9,5 @@ export const useReadings = () => {
       .then(setReadings);
   }, []);
 
-  return { readings };
+  return readings;
 };

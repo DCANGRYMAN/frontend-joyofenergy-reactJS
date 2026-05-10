@@ -17,7 +17,7 @@ export const formatDateLabel = (timestamp, filter = "monthly") => {
 };
 
 export const renderChart = (containerId, readings, filter = "monthly") => {
-  chartJs.Chart.defaults.font.size = "10px";
+  chartJs.Chart.defaults.font.size = 10; // ← era "10px", deve ser número
 
   chartJs.Chart.register.apply(
     null,

@@ -9,44 +9,42 @@ import { useStats } from "../hooks/useStats";
 export const App = () => {
   const readings = useReadings();
 
-  if (!readings) {
-    return null;
-  }
-
   const { filteredData, activeFilter, setActiveFilter } =
     useFilteredData(readings);
 
   const stats = useStats(filteredData);
 
+  if (!readings) {
+    return null;
+  }
+
   return (
     <div
       className="bg-dark-gray min-vh-100"
-      style={{
-        overflowX: "hidden",
-        overflowY: "auto",
-      }}
+      style={{ overflowX: "hidden", overflowY: "auto" }}
     >
       <div className="mw9 center ph3">
-        <div className="flex flex-column flex-row-l">
-          <aside className="w-100 w-30-l pr4-l mb4 mb0-l">
+        <div style={{ display: "flex", minHeight: "100vh" }}>
+          <aside style={{ width: "20%", flexShrink: 0 }}>
             <Sidebar />
           </aside>
-
           <main
-            className="w-100 w-70-l"
             style={{
+              width: "80%",
               display: "grid",
               gridTemplateRows: "1fr auto",
             }}
           >
             <EnergyConsumption
-              readings={filteredData}
+              filteredData={filteredData}
               activeFilter={activeFilter}
               setActiveFilter={setActiveFilter}
-              stats={stats}
             />
-
-            <Footer />
+            <Footer
+              totalConsumption={stats.totalConsumption}
+              estimatedCost={stats.estimatedCost}
+              footprint={stats.footprint}
+            />
           </main>
         </div>
       </div>

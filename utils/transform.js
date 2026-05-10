@@ -1,5 +1,7 @@
+const toArray = (readings) => (Array.isArray(readings) ? readings : []);
+
 export const groupByHour = (readings) => {
-  const grouped = readings.reduce((curr, { time, value }) => {
+  const grouped = toArray(readings).reduce((curr, { time, value }) => {
     const date = new Date(time);
     const hour = new Date(
       date.getFullYear(),
@@ -19,7 +21,7 @@ export const groupByHour = (readings) => {
 };
 
 export const groupByDay = (readings) => {
-  const grouped = readings.reduce((curr, { time, value }) => {
+  const grouped = toArray(readings).reduce((curr, { time, value }) => {
     const date = new Date(time);
     const day = new Date(
       date.getFullYear(),
@@ -38,7 +40,7 @@ export const groupByDay = (readings) => {
 };
 
 export const groupByMonth = (readings) => {
-  const grouped = readings.reduce((curr, { time, value }) => {
+  const grouped = toArray(readings).reduce((curr, { time, value }) => {
     const date = new Date(time);
     const month = new Date(
       date.getFullYear(),
@@ -57,7 +59,7 @@ export const groupByMonth = (readings) => {
 };
 
 export const sortByTime = (readings) => {
-  return [...readings].sort(
+  return [...toArray(readings)].sort(
     (readingA, readingB) => readingA.time - readingB.time
   );
 };
