@@ -1,27 +1,53 @@
-import { useEffect, useState } from "react";
-import { Sidebar } from "./Sidebar.jsx";
-import { EnergyConsumption } from "./EnergyConsumption.jsx";
-import { getReadings } from "../utils/reading";
+import { Sidebar } from "./Sidebar";
+import { EnergyConsumption } from "./EnergyConsumption";
+import { Stats } from "./Stats";
+
+import { useReadings } from "../hooks/useReadings";
+import { useFilteredData } from "../hooks/useFilteredData";
+import { useStats } from "../hooks/useStats";
 
 export const App = () => {
-  const [readings, setReadings] = useState();
+  const readings = useReadings();
 
-  useEffect(() => {
-    getReadings().then(setReadings);
-  }, []);
+  const { filteredData, activeFilter, setActiveFilter } =
+    useFilteredData(readings);
+
+  const stats = useStats(filteredData);
 
   if (!readings) {
     return null;
   }
 
   return (
-    <div className="background shadow-2 flex overflow-hidden">
-      <aside className="p3 menuWidth overflow-auto">
-        <Sidebar />
-      </aside>
-      <article className="bg-very-light-grey p3 flex-auto overflow-auto">
-        <EnergyConsumption readings={readings} />
-      </article>
+    <div
+      className="bg-dark-gray min-vh-100"
+      style={{ overflowX: "hidden", overflowY: "auto" }}
+    >
+      <div className="app-container">
+        <aside className="app-sidebar">
+          <Sidebar />
+        </aside>
+        <main
+          style={{
+            width: "80%",
+            display: "grid",
+            gridTemplateRows: "1fr auto",
+          }}
+        >
+          <EnergyConsumption
+            readings={filteredData}
+            filteredData={filteredData}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+            stats={stats}
+          />
+          <Stats
+            totalConsumption={stats.totalConsumption}
+            estimatedCost={stats.estimatedCost}
+            footprint={stats.footprint}
+          />
+        </main>
+      </div>
     </div>
   );
 };

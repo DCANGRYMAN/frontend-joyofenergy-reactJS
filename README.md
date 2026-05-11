@@ -30,3 +30,41 @@ The application will launch at `http://localhost:5173`.
 ```console
 $ npm test
 ```
+
+## Architecture Improvements
+
+### Overview
+Refactored React application to consolidate state management and eliminate duplicate logic. Implemented a stats footer with Total Consumption, Estimated Cost, and Carbon Footprint displays matching the Angular version.
+
+### Key Changes
+
+#### 1. Custom Hook: useReadings
+Single source of truth for all energy data and calculations.
+Centralizes data fetching, filter state, chart rendering, and derived calculations.
+Replaces scattered useEffect calls that previously existed across multiple components.
+Exposes: readings, filteredData, activeFilter, setActiveFilter, totalConsumption, estimatedCost, footprint.
+
+#### 2. Stats Component
+New Stats.jsx with three stat cards:
+- Total Consumption: sum of energy values across filtered days (kWh)
+- Estimated Cost: calculated as totalConsumption multiplied by 0.85 (USD)
+- Carbon Footprint: calculated as totalConsumption multiplied by 0.233 (kg CO2, UK average intensity)
+Matches Angular layout using Basscss utility classes.
+
+#### 3. EnergyConsumption Component
+Removed internal data transformation logic (groupByDay/sortByTime).
+Now receives pre-filtered data directly from useReadings hook.
+Filter buttons (Daily, Weekly, Monthly) are fully dynamic and reactive.
+Chart updates automatically when filter or data changes.
+
+#### 4. Layout Refactoring (App.jsx)
+Replaced two separate article columns with single main element using CSS Grid.
+Footer stats positioned below chart with consistent spacing (1rem gap).
+Removed Cost, Consumption, and Footprint components.
+Stats now consolidated into single Footer component.
+
+#### 5. Architecture Pattern
+useReadings hook serves same purpose as ApiService in Angular version.
+Single place for state, side effects, and data calculations.
+Components are now thin presentational layers that receive all data as props.
+No component performs its own data fetching or calculations.
