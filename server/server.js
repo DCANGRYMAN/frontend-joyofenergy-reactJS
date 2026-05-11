@@ -34,7 +34,7 @@ const getCurrentData = () => {
     return total + (device.baseUsage * variation * dayFactor);
   }, 0);
 
-  const solarProduction = Math.sin((hour - 6) * Math.PI / 12) * 5.8;
+  const solarProduction = Math.max(0, Math.sin((hour - 6) * Math.PI / 12) * 5.8);
   const fedIntoGrid = Math.max(0, solarProduction - currentUsage);
 
   return {

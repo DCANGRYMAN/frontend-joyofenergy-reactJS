@@ -151,36 +151,6 @@ describe("useFilteredData", () => {
     });
   });
 
-  describe("Yearly Filter", () => {
-    it("should group by month for yearly", () => {
-      const { result } = renderHook(() => useFilteredData(mockReadings));
-
-      act(() => {
-        result.current.setActiveFilter("yearly");
-      });
-
-      expect(result.current.activeFilter).toBe("yearly");
-      expect(groupByMonth).toHaveBeenCalledWith(mockReadings);
-      expect(sortByTime).toHaveBeenCalled();
-    });
-
-    it("should return all months (no slice limit)", () => {
-      const yearlyReadings = Array.from({ length: 365 }, (_, i) => ({
-        time: Date.now() - i * 86400000,
-        value: i,
-      }));
-
-      const { result } = renderHook(() => useFilteredData(yearlyReadings));
-
-      act(() => {
-        result.current.setActiveFilter("yearly");
-      });
-
-      // Should return all unique months, not sliced
-      expect(result.current.filteredData.length).toBeGreaterThan(0);
-    });
-  });
-
   describe("Filter Switching", () => {
     it("should switch from daily to weekly", () => {
       const { result } = renderHook(() => useFilteredData(mockReadings));
@@ -199,7 +169,7 @@ describe("useFilteredData", () => {
     it("should switch through all filters", () => {
       const { result } = renderHook(() => useFilteredData(mockReadings));
 
-      const filters = ["daily", "weekly", "monthly", "yearly"];
+      const filters = ["daily", "weekly", "monthly"];
       filters.forEach((filter) => {
         act(() => {
           result.current.setActiveFilter(filter);

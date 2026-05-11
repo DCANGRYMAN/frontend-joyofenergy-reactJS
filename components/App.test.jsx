@@ -24,15 +24,15 @@ vi.mock("./EnergyConsumption", () => ({
         {activeFilter}
       </span>
 
-      <span data-testid="stats">
+      <span data-testid="consumption-stats">
         {JSON.stringify(stats)}
       </span>
     </div>
   ),
 }));
 
-vi.mock("./Footer", () => ({
-  Footer: () => <div data-testid="footer">Footer</div>,
+vi.mock("./Stats", () => ({
+  Stats: () => <div data-testid="stats">Stats</div>,
 }));
 
 vi.mock("../hooks/useReadings", () => ({
@@ -123,11 +123,11 @@ describe("App", () => {
       ).toBeInTheDocument();
     });
 
-    it("should render Footer component", () => {
+    it("should render Stats component", () => {
       render(<App />);
 
       expect(
-        screen.getByTestId("footer")
+        screen.getByTestId("stats")
       ).toBeInTheDocument();
     });
 

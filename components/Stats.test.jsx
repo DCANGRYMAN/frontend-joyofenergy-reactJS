@@ -13,18 +13,18 @@ describe("Stats", () => {
 
   describe("Rendering", () => {
     it("should render without crashing", () => {
-      render(<Footer stats={mockStats} />);
+      render(<Stats stats={mockStats} />);
       expect(screen.getByText(/carbon footprint/i)).toBeInTheDocument();
     });
 
     it("should render footer section", () => {
-      const { container } = render(<Footer stats={mockStats} />);
+      const { container } = render(<Stats stats={mockStats} />);
       const section = container.querySelector("section");
       expect(section).toBeInTheDocument();
     });
 
     it("should render carbon footprint label", () => {
-      render(<Footer stats={mockStats} />);
+      render(<Stats stats={mockStats} />);
 
       expect(screen.getByText(/carbon footprint/i)).toBeInTheDocument();
     });

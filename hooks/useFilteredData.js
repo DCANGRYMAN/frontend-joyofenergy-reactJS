@@ -4,8 +4,7 @@ import { groupByHour, groupByDay, groupByMonth, sortByTime } from "../utils/tran
 const groupMap = {
   daily:   (r) => sortByTime(groupByHour(r)).slice(-24),
   weekly:  (r) => sortByTime(groupByDay(r)).slice(-7),
-  monthly: (r) => sortByTime(groupByDay(r)).slice(-30),
-  yearly:  (r) => sortByTime(groupByMonth(r)),
+  monthly: (r) => sortByTime(groupByDay(r)).slice(-30)
 };
 
 export const useFilteredData = (readings) => {
