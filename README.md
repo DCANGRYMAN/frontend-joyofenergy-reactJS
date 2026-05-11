@@ -44,8 +44,8 @@ Centralizes data fetching, filter state, chart rendering, and derived calculatio
 Replaces scattered useEffect calls that previously existed across multiple components.
 Exposes: readings, filteredData, activeFilter, setActiveFilter, totalConsumption, estimatedCost, footprint.
 
-#### 2. Footer Component
-New Footer.jsx with three stat cards:
+#### 2. Stats Component
+New Stats.jsx with three stat cards:
 - Total Consumption: sum of energy values across filtered days (kWh)
 - Estimated Cost: calculated as totalConsumption multiplied by 0.85 (USD)
 - Carbon Footprint: calculated as totalConsumption multiplied by 0.233 (kg CO2, UK average intensity)
@@ -59,7 +59,7 @@ Chart updates automatically when filter or data changes.
 
 #### 4. Layout Refactoring (App.jsx)
 Replaced two separate article columns with single main element using CSS Grid.
-Footer positioned below chart with consistent spacing (1rem gap).
+Footer stats positioned below chart with consistent spacing (1rem gap).
 Removed Cost, Consumption, and Footprint components.
 Stats now consolidated into single Footer component.
 
