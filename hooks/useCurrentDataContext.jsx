@@ -12,7 +12,12 @@ const CACHE_TTL = 5000;
 let cache = null;
 let cacheTime = 0;
 
-const defaultData = {
+export const clearCache = () => {
+  cache = null;
+  cacheTime = 0;
+};
+
+export const defaultData = {
   current: {
     currentUsage: 0,
     solarProduction: 0,
@@ -31,7 +36,9 @@ const fetchCurrentData = async () => {
 
   const res = await fetch("http://localhost:3000/data");
 
-  if (!res.ok) throw new Error("Failed to fetch");
+  if (!res.ok) {
+    throw new Error("Failed to fetch");
+  }
 
   const json = await res.json();
 
@@ -42,18 +49,26 @@ const fetchCurrentData = async () => {
 };
 
 const ErrorScreen = ({ onRetry }) => (
-  <div style={{
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: "100vh",
-    gap: "1rem",
-    color: "#ccc",
-  }}>
-    <p style={{ fontSize: "1.2rem", color: "black" }}>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      minHeight: "100vh",
+      gap: "1rem",
+      color: "#ccc",
+    }}
+  >
+    <p
+      style={{
+        fontSize: "1.2rem",
+        color: "black",
+      }}
+    >
       Could not load energy data.
     </p>
+
     <button
       onClick={onRetry}
       style={{
@@ -75,23 +90,34 @@ export const DataProvider = ({ children }) => {
   const [data, setData] = useState(defaultData);
   const [error, setError] = useState(false);
 
-  const loadData = async (mounted = true) => {
+  const loadData = async (isMounted = () => true) => {
     try {
       setError(false);
+
       const result = await fetchCurrentData();
-      if (mounted) setData(result);
+
+      if (isMounted()) {
+        setData(result);
+      }
     } catch (err) {
       console.error("Failed to fetch current data:", err);
-      if (mounted) setError(true);
+
+      if (isMounted()) {
+        setError(true);
+      }
     }
   };
 
   useEffect(() => {
     let mounted = true;
 
-    loadData(mounted);
+    const isMounted = () => mounted;
 
-    const timer = setInterval(() => loadData(mounted), CACHE_TTL);
+    loadData(isMounted);
+
+    const timer = setInterval(() => {
+      loadData(isMounted);
+    }, CACHE_TTL);
 
     return () => {
       mounted = false;
@@ -103,7 +129,7 @@ export const DataProvider = ({ children }) => {
     return (
       <ErrorScreen
         onRetry={() => {
-          cache = null;
+          clearCache();
           loadData();
         }}
       />
